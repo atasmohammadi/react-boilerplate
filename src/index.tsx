@@ -1,12 +1,28 @@
+/**
+ * React Boilerplate
+ * Configures the Redux Store and Redux Persist
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import configureStore from './redux';
+import App from './pages';
 import reportWebVitals from './reportWebVitals';
+import './index.css';
+
+// Create redux store
+const initialState = {};
+const { store, persistor } = configureStore(initialState);
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
